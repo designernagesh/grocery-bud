@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container, Box, Heading } from '@chakra-ui/react'
+import GroceryForm from './components/GroceryForm';
+import GroceryItems from './components/GroceryItems';
+import { useState } from 'react';
 
 function App() {
+  const [ groceryItems, setGroceryItems ] = useState([]);
+
+  const addItem = (itemName) => {
+    let newItem = {
+      name: itemName,
+      completed: false,
+      id: new Date().getTime().toString()
+    }
+    setGroceryItems([...groceryItems, newItem]);
+  }
+
+  const deleteItem = ( itemId ) => {
+    let newGroceryItems = groceryItems.filter( item => item.id !== itemId);
+    setGroceryItems(newGroceryItems);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxW='4xl' mt='30px'>
+        <Box boxShadow='lg' p='6' rounded='md' bg='white'>
+          <Heading as='h1' fontSize='72px' mb='20px' color='#ec1839' align='center'>
+            Grocery Bud
+          </Heading>
+          <GroceryForm addItem={addItem} />
+          <GroceryItems groceryItems={groceryItems} deleteItem={deleteItem} />
+        </Box>
+    </Container>
   );
 }
 
