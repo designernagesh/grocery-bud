@@ -3,8 +3,12 @@ import GroceryForm from './components/GroceryForm';
 import GroceryItems from './components/GroceryItems';
 import { useState } from 'react';
 
+let setLocalStorage = (items) => {
+  localStorage.setItem('groceryLists', JSON.stringify(items))
+}
+let LocalStorageListItems = JSON.parse(localStorage.getItem('groceryLists') || '[]')
 function App() {
-  const [ groceryItems, setGroceryItems ] = useState([]);
+  const [ groceryItems, setGroceryItems ] = useState(LocalStorageListItems);
 
   const addItem = (itemName) => {
     let newItem = {
@@ -12,12 +16,15 @@ function App() {
       completed: false,
       id: new Date().getTime().toString()
     }
-    setGroceryItems([...groceryItems, newItem]);
+    let newItems = [...groceryItems, newItem]
+    setGroceryItems(newItems);
+    setLocalStorage(newItems);
   }
 
   const deleteItem = ( itemId ) => {
     let newGroceryItems = groceryItems.filter( item => item.id !== itemId);
     setGroceryItems(newGroceryItems);
+    setLocalStorage(newGroceryItems);
   }
 
   return (

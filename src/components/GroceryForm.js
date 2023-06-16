@@ -16,6 +16,9 @@ const GroceryForm = ({ addItem }) => {
     }
     addItem(inputValue);
     setInputValue('');
+
+
+    localStorage.setItem('items', 'grocery')
   }
 
   return (
