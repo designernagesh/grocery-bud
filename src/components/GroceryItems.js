@@ -3,9 +3,7 @@ import GroceryItem from './GroceryItem';
 
 const GroceryItems = ({groceryItems, deleteItem}) => {
     return (
-
-        <Flex justifyContent='center'>
-            
+        <Flex justifyContent='center'>            
             <UnorderedList listStyleType='none'>
             {
                 groceryItems.map(item => {

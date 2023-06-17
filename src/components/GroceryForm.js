@@ -1,5 +1,6 @@
 import { Flex, Input, Button } from '@chakra-ui/react';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const GroceryForm = ({ addItem }) => {
   const [ inputValue, setInputValue ] = useState("");
@@ -11,12 +12,11 @@ const GroceryForm = ({ addItem }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if(!inputValue) {
-      alert("Add any Grocery Bud!")
+      toast.error("Add any Grocery Bud!")
       return;
     }
     addItem(inputValue);
     setInputValue('');
-
 
     localStorage.setItem('items', 'grocery')
   }
